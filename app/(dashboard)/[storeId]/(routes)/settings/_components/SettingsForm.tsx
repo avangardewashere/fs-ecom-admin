@@ -1,11 +1,18 @@
-import React from 'react'
+"use client";
 
-const SettingsForm = () => {
-  return (
-    <div>
-      <span>Settings Form</span>
-    </div>
-  )
+import { Store } from "@prisma/client";
+
+interface SettingsFormProps {
+  initialData: Store;
 }
 
-export default SettingsForm
+const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
+  return (
+    <div className="flex items-center justify-between">
+      <Heading title="Settings" description="Manage store preferences" />
+      <span>Settings Form</span>
+    </div>
+  );
+};
+
+export default SettingsForm;
