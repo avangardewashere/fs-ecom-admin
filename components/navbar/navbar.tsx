@@ -1,11 +1,20 @@
-import React from 'react'
+import { UserButton } from "@clerk/nextjs";
+import React from "react";
+import { MainNav } from "../MainNav/mainNav";
 
 const Navbar = () => {
   return (
-    <div>
-      This is a component navbar
-    </div>
-  )
-}
+    <div className="border-b">
+      <div className="flex h-16 items-center px-4">
+        <div>this will be a store swither</div>
+       <MainNav className="mx-6" /> 
 
-export default Navbar
+        <div className="ml-auto flex items-center space-x-4">
+          <UserButton />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
