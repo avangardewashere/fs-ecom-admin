@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/form";
 import Heading from "@/components/ui/heading";
 import { Input } from "@/components/ui/input";
+import { AlertModal } from "@/components/ui/modal/alert-modal";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Store } from "@prisma/client";
@@ -46,7 +47,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       setLoading(true);
       await axios.patch(`/api/stores/${params.storeId}`, data);
       router.refresh();
-      toast.success("Store Updated")
+      toast.success("Store Updated");
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
@@ -56,6 +57,12 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
 
   return (
     <>
+      <AlertModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        onConfirm={() => {}}
+        loading={loading}
+      />
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
         <span>Settings Form</span>
@@ -91,9 +98,9 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
               )}
             />
           </div>
-          <button disabled={loading} className="ml-auto" type="submit">
+          <Button disabled={loading} className=" my-6" type="submit">
             Save Changes
-          </button>
+          </Button>
         </form>
       </Form>
     </>

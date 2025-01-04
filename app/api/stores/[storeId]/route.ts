@@ -11,7 +11,7 @@ export async function PATCH(
 
     const body = await req.json();
 
-    const { name } = await body();
+    const { name } = await body;
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -24,9 +24,11 @@ export async function PATCH(
       return new NextResponse("Store Id is required", { status: 400 });
     }
 
+    const {storeId} = await params
+
     const store = await prismadb.store.updateMany({
       where: {
-        id: params.storeId,
+        id: storeId,
         userId: userId,
       },
       data: { name: name },
