@@ -29,7 +29,7 @@ const formSchema = z.object({
 type SettingsFormValues = z.infer<typeof formSchema>;
 
 const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
-  const [open, setOPpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [loading, setIsLoading] = useState(false);
 
   const form = useForm<SettingsFormValues>({
@@ -46,7 +46,12 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       <div className="flex items-center justify-between">
         <Heading title="Settings" description="Manage store preferences" />
         <span>Settings Form</span>
-        <Button variant={"destructive"} size="sm" onClick={() => {}}>
+        <Button
+          variant={"destructive"}
+          size="icon"
+          disabled={loading}
+          onClick={() => {setOpen(true)}}
+        >
           <Trash className="h-4 w-4" />
         </Button>
       </div>
