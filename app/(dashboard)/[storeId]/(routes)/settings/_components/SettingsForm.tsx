@@ -37,7 +37,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
     defaultValues: initialData,
   });
 
-  const onSubmit = async (data: SettingsFormProps) => {
+  const onSubmit = async (data: SettingsFormValues) => {
     console.log(data);
   };
 
@@ -52,7 +52,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
       </div>
       <Separator />
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit as any)} className="space-x-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-x-4">
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
