@@ -3,6 +3,7 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,17 +20,19 @@ model Store {
   userId     String
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
-  billboards Billboard[] @relation("StoreToBillboard")
+  billboards BillBoard[] @relation("StoreToBillboard")
+ 
 }
 
-model Billboard {
+model BillBoard {
   id        String   @id @default(uuid())
   storeId   String
   store     Store    @relation("StoreToBillboard", fields: [storeId], references: [id])
   label     String
   imageUrl  String
-  createdAt DateTime @default(now())
+  createAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
+  // Store     Store    @relation(fields: [storeId], references: [id])
 
   @@index([storeId])
 }
