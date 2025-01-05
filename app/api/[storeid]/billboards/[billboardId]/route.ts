@@ -107,7 +107,7 @@ export async function DELETE(
   return new NextResponse("Internal error", { status: 500 });
 }
 
-//////Get
+////// Get function
 
 export async function GET(
   req: Request,

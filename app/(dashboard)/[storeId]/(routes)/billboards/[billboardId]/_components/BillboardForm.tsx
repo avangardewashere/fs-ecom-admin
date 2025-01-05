@@ -72,7 +72,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
           data
         );
       } else {
-        await axios.post(`/api/${params.storeId}/bilboards`, data);
+        await axios.post(`/api/${params.storeId}/billboards`, data);
       }
       router.refresh();
       toast.success(toastMessage);
@@ -97,7 +97,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       toast.success("Billboard has been deleted");
     } catch (error) {
       toast.error(
-        "Make sure you remove all categories using this billboard  first."
+        "Make sure you remove all categories using this billboard first."
       );
     } finally {
       setLoading(false);
@@ -135,21 +135,27 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
           <FormField
             control={form.control}
             name="imageUrl"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Background Image</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    value={field?.value ? [field.value] : []}
-                    disabled={loading}
-                    onChange={(url) => field.onChange(url)}
-                    onRemove={() => {
-                      field.onChange("");
-                    }}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
+            render={({ field }) => {
+              // console.log("Rendering FormField for imageUrl:", field);
+              return (
+                <FormItem>
+                  <FormLabel>Background Image</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      value={field.value ? [field.value] : []}
+                      disabled={loading}
+                      onChange={(url) => {
+                        console.log(url);
+                        field.onChange(url);
+                      }}
+                      onRemove={() => {
+                        field.onChange("");
+                      }}
+                    />
+                  </FormControl>
+                </FormItem>
+              );
+            }}
           />
           <div className="grid grid-cols-3 gap-8">
             <FormField

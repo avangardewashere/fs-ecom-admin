@@ -24,9 +24,22 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
     setIsMounted(true);
   }, []);
 
-  const onUpload = (result: any) => {
-    onChange(result.info.secureUrl);
-  };
+const onUpload = (result: any) => {
+  console.log('Upload result:', result); // Debugging line
+
+  // Inspect the structure of `result.info` to find the correct path to `secureUrl`
+  const secureUrl = result.info.secure_url  // Adjust based on actual structure
+  console.log(secureUrl, "here");
+  
+  if (secureUrl) {
+    onChange(secureUrl);
+  } else {
+    console.error("No secure URL found in upload result");
+  }
+};
+
+
+
   if (!isMounted) {
     return null;
   }

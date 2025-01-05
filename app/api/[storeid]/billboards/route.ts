@@ -4,14 +4,14 @@ import { NextResponse } from "next/server";
 
 export async function POST(
   req: Request,
-  { params }: { params: { storeId: string } }
+  { params }: { params: { storeid: string } }
 ) {
   try {
     const { userId } = await auth();
     const body = await req.json();
 
     const { label, imageUrl } = body;
-    const { storeId } = await params;
+    const { storeid } = await params;
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
@@ -24,13 +24,13 @@ export async function POST(
       return new NextResponse("Image URL is required", { status: 400 });
     }
 
-    if (!storeId) {
-      return new NextResponse("Store Id is required", { status: 400 });
+    if (!storeid) {
+      return new NextResponse("Store Id is required"+ params.storeid, { status: 400 });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
       where: {
-        id: storeId,
+        id: storeid,
         userId,
       },
     });
@@ -43,7 +43,7 @@ export async function POST(
       data: {
         label,
         imageUrl,
-        storeId: storeId,
+        storeId: storeid,
       },
     });
 
@@ -56,17 +56,17 @@ export async function POST(
 
 export async function GET(
   req: Request,
-  { params }: { params: { storeId: string } }
+  { params }: { params: { storeid: string } }
 ) {
   try {
-    if (!params.storeId) {
+    if (!params.storeid) {
       return new NextResponse("Store id is reqruired", { status: 400 });
     }
 
-    const { storeId } = await params;
+    const { storeid } = await params;
     const billboards = await prismadb.billBoard.findMany({
       where: {
-        storeId,
+        storeId:storeid,
       },
     });
 
