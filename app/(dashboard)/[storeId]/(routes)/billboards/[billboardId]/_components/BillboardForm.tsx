@@ -41,6 +41,19 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
   const origin = useOrigin();
+
+  const title = initialData ? "Edit Billboard" : "Create Billboard";
+
+  const description = initialData
+    ? "Edit existing Billboard"
+    : "Create a new Billboard";
+
+  const toastMessage = initialData
+    ? "Billboard Update successfully"
+    : "Billboard create successfully";
+
+  const actionMessage = initialData ? "Save Changes" : "Add New Billboard";
+
   const form = useForm<BillboardFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
@@ -54,7 +67,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       setLoading(true);
       await axios.patch(`/api/stores/${params.storeId}`, data);
       router.refresh();
-      toast.success("Store Updated");
+      toast.success(toastMessage);
     } catch (error) {
       toast.error("Something went wrong");
     } finally {
@@ -88,18 +101,20 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
         loading={loading}
       />
       <div className="flex items-center justify-between">
-        <Heading title="Billboard" description="Manage store preferences" />
+        <Heading title={title} description={description} />
         <span>Billboard Form</span>
-        <Button
-          variant={"destructive"}
-          size="icon"
-          disabled={loading}
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          <Trash className="h-4 w-4" />
-        </Button>
+        {initialData && (
+          <Button
+            variant={"destructive"}
+            size="icon"
+            disabled={loading}
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            <Trash className="h-4 w-4" />
+          </Button>
+        )}
       </div>
       <Separator />
       <Form {...form}>
@@ -110,12 +125,12 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
               name="label"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Label</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={loading}
-                      placeholder="Store name"
+                      placeholder="Billboard label"
                     />
                   </FormControl>
                 </FormItem>
@@ -123,7 +138,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
             />
           </div>
           <Button disabled={loading} className=" my-6" type="submit">
-            Save Changes
+            {actionMessage}
           </Button>
         </form>
       </Form>

@@ -15,7 +15,7 @@ const BillBoardsSinglePage = async ({
   return (
     <div className="flex-col">
       <div className="flex-col space-y-4 p-8 pt-6">
-        <BillboardForm />
+        <BillboardForm  initialData={billbaoard}/>
       </div>
     </div>
   );
