@@ -1,6 +1,5 @@
 "use client";
 
- 
 import ApiAlert from "@/components/ui/ApiAlert";
 import { Button } from "@/components/ui/button";
 import {
@@ -123,7 +122,11 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
         </form>
       </Form>
       <Separator />
-      <ApiAlert title="test" description="test-desc" variant="public" />
+      <ApiAlert
+        title="NEXT_PUBLIC-API_URL"
+        description="test-desc"
+        variant="public"
+      />
     </>
   );
 };
