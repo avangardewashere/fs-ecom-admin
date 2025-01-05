@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 import { Plus } from "lucide-react";
