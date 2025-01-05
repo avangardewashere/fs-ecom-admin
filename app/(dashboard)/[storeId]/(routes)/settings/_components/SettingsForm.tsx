@@ -1,5 +1,7 @@
 "use client";
 
+ 
+import ApiAlert from "@/components/ui/ApiAlert";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -120,6 +122,8 @@ const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
           </Button>
         </form>
       </Form>
+      <Separator />
+      <ApiAlert title="test" description="test-desc" variant="public" />
     </>
   );
 };
