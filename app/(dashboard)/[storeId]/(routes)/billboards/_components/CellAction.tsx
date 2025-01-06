@@ -11,12 +11,34 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
+import toast from "react-hot-toast";
 
 interface CellActionProps {
   data: BillboardColumn;
 }
 
 const CellAction: React.FC<CellActionProps> = ({ data }) => {
+  const onCopy = (id: string) => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(id)
+        .then(() => {
+          toast.success("API Route Copied Successfully");
+        })
+        .catch((err) => {
+          console.error("Failed to copy text: ", err);
+        });
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.value = id;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      toast.success("API Route Copied Successfully (Fallback)");
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -32,7 +54,7 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <Edit className="h-4 2-4" />
           <span>Update</span>
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => onCopy("id")}>
           <Copy className="h-4 2-4" />
           <span>Copy ID</span>
         </DropdownMenuItem>
