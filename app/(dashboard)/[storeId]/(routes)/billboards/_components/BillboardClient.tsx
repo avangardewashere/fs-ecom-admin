@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Button } from "@/components/ui/button";
 import Heading from "@/components/ui/heading";
 import { BillBoard } from "@prisma/client";
@@ -6,11 +6,11 @@ import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 
-interface BillboardClientProps{
-  data:BillBoard[]
+interface BillboardClientProps {
+  data: BillBoard[];
 }
 
-const BillboardClient:React.FC<BillboardClientProps>= ({data}) => {
+const BillboardClient: React.FC<BillboardClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
   return (
