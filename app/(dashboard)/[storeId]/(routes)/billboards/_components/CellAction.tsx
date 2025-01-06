@@ -23,10 +23,10 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
       navigator.clipboard
         .writeText(id)
         .then(() => {
-          toast.success("API Route Copied Successfully");
+          toast.success("Billboard Id Copied Successfully");
         })
         .catch((err) => {
-          console.error("Failed to copy text: ", err);
+          console.error("Failed to copy BillBoard ID: ", err);
         });
     } else {
       const textarea = document.createElement("textarea");
@@ -50,14 +50,16 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
+        <DropdownMenuItem onClick={() => onCopy(data.id)}>
+          <Copy className="h-4 2-4" />
+          <span>Copy ID</span>
+        </DropdownMenuItem>
+
         <DropdownMenuItem>
           <Edit className="h-4 2-4" />
           <span>Update</span>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => onCopy("id")}>
-          <Copy className="h-4 2-4" />
-          <span>Copy ID</span>
-        </DropdownMenuItem>
+
         <DropdownMenuItem>
           <Trash className="h-4 2-4" />
           <span>Delete</span>
