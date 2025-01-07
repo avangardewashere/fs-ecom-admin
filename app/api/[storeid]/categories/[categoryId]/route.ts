@@ -111,27 +111,27 @@ export async function DELETE(
 
 export async function GET(
   req: Request,
-  { params }: { params: { billboardId: string } }
+  { params }: { params: { categoryId: string } }
 ) {
   try {
     const { userId } = await auth();
-    const { billboardId } = await params;
+    const { categoryId } = await params;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
-    if (!billboardId) {
-      return new NextResponse("Billboard  Id is required", { status: 400 });
+    if (!categoryId) {
+      return new NextResponse("category  Id is required", { status: 400 });
     }
 
-    const billboard = await prismadb.store.findUnique({
+    const category = await prismadb.category.findUnique({
       where: {
-        id: billboardId,
+        id: categoryId,
       },
     });
 
-    return NextResponse.json(billboard);
+    return NextResponse.json(category);
   } catch (error) {
     console.log("[BILLBOARD_GET]", error);
   }
