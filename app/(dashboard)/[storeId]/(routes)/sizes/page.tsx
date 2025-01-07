@@ -4,7 +4,7 @@ import SizesClient from "./_components/SizesClient";
 import { SizesColumn } from "./_components/column";
 import { format } from "date-fns";
 
-const BillBoardsPage = async ({
+const SizesPage = async ({
   params,
 }: {
   params: { storeId: string  };
@@ -36,4 +36,4 @@ const BillBoardsPage = async ({
   );
 };
 
-export default BillBoardsPage;
+export default SizesPage;
