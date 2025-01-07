@@ -170,10 +170,26 @@ const SizesForm: React.FC<SizesFormProps> = ({ initialData }) => {
                     <Input
                       {...field}
                       disabled={loading}
-                      placeholder="sizes label"
+                      placeholder="Sizes Name"
                     />
                   </FormControl>
                 </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="value"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Value</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={loading}
+                      placeholder="Sizes value"
+                    />
+                  </FormControl>
+                </FormItem> 
               )}
             />
           </div>
