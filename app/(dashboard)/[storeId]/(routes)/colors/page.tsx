@@ -1,5 +1,5 @@
 import prismadb from "@/lib/prismadb";
-import Colorclient from "./_components/ColorClient";
+import ColorClient from "./_components/ColorClient";
  
 import { ColorsColumn } from "./_components/column";
 import { format } from "date-fns";
