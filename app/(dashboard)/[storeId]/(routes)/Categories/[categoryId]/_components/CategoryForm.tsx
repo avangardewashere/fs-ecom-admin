@@ -79,7 +79,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
       setLoading(true);
       if (initialData) {
         await axios.patch(
-          `/api/${params.storeId}/categories/${params.billboardId}`,
+          `/api/${params.storeId}/categories/${params.categoryId}`,
           data
         );
       } else {
@@ -118,7 +118,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
     }
   };
 
-  console.log(billboards)
+ 
 
   return (
     <>
@@ -196,7 +196,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel>
+                    <FormLabel> Billboard </FormLabel>
                       <Select
                         disabled={loading}
                         onValueChange={field.onChange}
@@ -219,7 +219,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
                           ))}
                         </SelectContent>
                       </Select>
-                    </FormLabel>
+                  
                   </FormItem>
                 );
               }}
@@ -230,12 +230,12 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
           </Button>
         </form>
       </Form>
-      <Separator />
+      {/* <Separator />
       <ApiAlert
         title="NEXT_PUBLIC-API_URL"
-        description={`${origin}/api${params.storeId}`}
+        description={`${origin}/api/${params.storeId}`}
         variant="public"
-      />
+      /> */}
     </>
   );
 };

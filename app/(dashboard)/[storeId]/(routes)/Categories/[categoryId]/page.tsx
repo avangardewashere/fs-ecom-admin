@@ -14,14 +14,13 @@ const CategorySinglePage = async ({
   });
 
 
-  console.log("stid",storeId)
+ 
   const billboards = await prismadb.billBoard.findMany({
     where: {
       storeId: storeId,
     },
   });
-
-  console.log("outside",billboards)
+ 
   return (
     <div className="flex-col">
       <div className="flex-col space-y-4 p-8 pt-6">

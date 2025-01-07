@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { storeId: string; categoryId: string } }
+  { params }: { params: { storeid: string; categoryId: string } }
 ) {
   try {
     const { userId } = await auth();
@@ -14,7 +14,7 @@ export async function PATCH(
     const { name,billboardId } = await body;
 
     const { categoryId } = await params;
-    const { storeId } = await params;
+    const { storeid } = await params;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
@@ -32,13 +32,13 @@ export async function PATCH(
       return new NextResponse("Category id is required", { status: 400 });
     }
 
-    if (!storeId) {
-      return new NextResponse("Store Id is required", { status: 400 });
+    if (!storeid) {
+      return new NextResponse("Store Id is required this", { status: 400 });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
       where: {
-        id: storeId,
+        id: storeid,
         userId,
       },
     });
@@ -46,11 +46,11 @@ export async function PATCH(
     if (!storeByUserId) {
       return new NextResponse("Unauthorizd", { status: 403 });
     }
-
+    console.log(name,billboardId)
     const category = await prismadb.category.updateMany({
       where: {
         id: categoryId,
-        // storeId: storeId,
+        // storeid: storeid,
       },
       data: { name:name , billboardId },
     });

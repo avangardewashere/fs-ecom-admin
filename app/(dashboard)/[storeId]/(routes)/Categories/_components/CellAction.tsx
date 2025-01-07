@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BillboardColumn } from "./column";
+import { CategoryColumn  } from "./column";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -17,7 +17,7 @@ import axios from "axios";
 import { AlertModal } from "@/components/ui/modal/alert-modal";
 
 interface CellActionProps {
-  data: BillboardColumn;
+  data: CategoryColumn;
 }
 
 const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -31,10 +31,10 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
       navigator.clipboard
         .writeText(id)
         .then(() => {
-          toast.success("Billboard Id Copied Successfully");
+          toast.success("Category Id Copied Successfully");
         })
         .catch((err) => {
-          console.error("Failed to copy BillBoard ID: ", err);
+          console.error("Failed to copy Category ID: ", err);
         });
     } else {
       const textarea = document.createElement("textarea");
@@ -50,12 +50,12 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/billboards/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/categories/${data.id}`);
       router.refresh();
       //   router.push("/");
-      toast.success("Billboard deleted :" + params.storeId);
+      toast.success("Category deleted :" + params.storeId);
     } catch (error) {
-      toast.error("");
+      toast.error("Make sure you remove all products before deleting this");
     } finally {
       setLoading(false);
       setOpen(false);
@@ -85,7 +85,7 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <span>Copy ID</span>
           </DropdownMenuItem>
 
-          <DropdownMenuItem>
+          <DropdownMenuItem onClick={()=>router.push(`/${params.storeId}/categories/${data.id}`)}>
             <Edit className="h-4 2-4" />
             <span>Update</span>
           </DropdownMenuItem>
