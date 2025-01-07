@@ -59,11 +59,12 @@ export async function GET(
   { params }: { params: { storeid: string } }
 ) {
   try {
-    if (!params.storeid) {
+    const { storeid } = await params;
+    if (!storeid) {
       return new NextResponse("Store id is reqruired", { status: 400 });
     }
 
-    const { storeid } = await params;
+  
     const billboards = await prismadb.billBoard.findMany({
       where: {
         storeId:storeid,

@@ -43,8 +43,8 @@ export async function POST(
 
     const category = await prismadb.category.create({
       data: {
-        name:name,
-        billboardId:billboardId,
+        name: name,
+        billboardId: billboardId,
         storeId: storeid,
       },
     });
@@ -61,11 +61,11 @@ export async function GET(
   { params }: { params: { storeid: string } }
 ) {
   try {
-    if (!params.storeid) {
+    const { storeid } = await params;
+
+    if (!storeid) {
       return new NextResponse("Store id is reqruired", { status: 400 });
     }
-
-    const { storeid } = await params;
     const categories = await prismadb.category.findMany({
       where: {
         storeId: storeid,

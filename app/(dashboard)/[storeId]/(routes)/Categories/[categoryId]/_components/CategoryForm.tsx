@@ -118,6 +118,8 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
     }
   };
 
+  console.log(billboards)
+
   return (
     <>
       <AlertModal
