@@ -5,15 +5,15 @@ import Heading from "@/components/ui/heading";
 import { Plus } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
-import { SizesColumn, columns } from "./column";
+import { ColorsColumn, columns } from "./column";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
 import ApiList from "@/components/ui/ApiList";
 interface SizesClientProps {
-  data: SizesColumn[];
+  data: ColorsColumn[];
 }
 
-const SizesClient: React.FC<SizesClientProps> = ({ data }) => {
+const ColorClient: React.FC<SizesClientProps> = ({ data }) => {
   const router = useRouter();
   const params = useParams();
   return (
@@ -41,4 +41,4 @@ const SizesClient: React.FC<SizesClientProps> = ({ data }) => {
   );
 };
 
-export default SizesClient;
+export default ColorClient;
