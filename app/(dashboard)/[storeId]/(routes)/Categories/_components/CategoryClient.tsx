@@ -30,10 +30,10 @@ const CategoryClient: React.FC<CategoryClientProps> = ({ data }) => {
         >
           <Plus className="h-4 w-4 ">Add new</Plus>
         </Button>
-        CAtegory client
+        Category client
       </div>
       <Separator />
-      <DataTable searchKey="label" columns={columns} data={data} />
+      <DataTable searchKey="name" columns={columns} data={data} />
       <Heading title="API" description="API Calls for Categories"></Heading>
       <Separator />
       <ApiList entityIDName="categoryId" entityName="categories" />

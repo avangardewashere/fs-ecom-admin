@@ -16,7 +16,7 @@ import { AlertModal } from "@/components/ui/modal/alert-modal";
 import { Separator } from "@/components/ui/separator";
 import { useOrigin } from "@/hooks/use-origin";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BillBoard } from "@prisma/client";
+import { Category } from "@prisma/client";
 import axios from "axios";
 import { Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -26,44 +26,44 @@ import toast from "react-hot-toast";
 import { z } from "zod";
 
 const formSchema = z.object({
-  label: z.string().min(1),
-  imageUrl: z.string().min(1),
+  name: z.string().min(1),
+  billboardId: z.string().min(1),
 });
 
-interface BillboardFormProps {
-  initialData?: BillBoard | null;
+interface CategoryFormProps {
+  initialData?: Category | null;
 }
 
-type BillboardFormValues = z.infer<typeof formSchema>;
+type CategoryFormValues = z.infer<typeof formSchema>;
 
-const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
+const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const params = useParams();
   const router = useRouter();
   const origin = useOrigin();
 
-  const title = initialData ? "Edit Billboard" : "Create Billboard";
+  const title = initialData ? "Edit Category" : "Create Category";
 
   const description = initialData
-    ? "Edit existing Billboard"
-    : "Create a new Billboard";
+    ? "Edit existing Category"
+    : "Create a new Category";
 
   const toastMessage = initialData
-    ? "Billboard Update successfully"
-    : "Billboard create successfully";
+    ? "Category Update successfully"
+    : "Category create successfully";
 
-  const actionMessage = initialData ? "Save Changes" : "Add New Billboard";
+  const actionMessage = initialData ? "Save Changes" : "Add New Category";
 
-  const form = useForm<BillboardFormValues>({
+  const form = useForm<CategoryFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
-      label: "",
-      imageUrl: "",
+      name: "",
+      billboardId: "",
     },
   });
 
-  const onSubmit = async (data: BillboardFormValues) => {
+  const onSubmit = async (data: CategoryFormValues) => {
     try {
       setLoading(true);
       if (initialData) {
@@ -134,7 +134,7 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       <Separator />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-x-4">
-          <FormField
+          {/* <FormField
             control={form.control}
             name="imageUrl"
             render={({ field }) => {
@@ -158,19 +158,19 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
                 </FormItem>
               );
             }}
-          />
+          /> */}
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
-              name="label"
+              name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Label</FormLabel>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       disabled={loading}
-                      placeholder="Billboard label"
+                      placeholder="Category label"
                     />
                   </FormControl>
                 </FormItem>
@@ -192,4 +192,4 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   );
 };
 
-export default BillboardForm;
+export default CategoryForm;
