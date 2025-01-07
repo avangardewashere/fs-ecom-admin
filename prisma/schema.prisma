@@ -22,7 +22,7 @@ model Store {
   updatedAt  DateTime    @updatedAt
   billboards BillBoard[] @relation("StoreToBillboard")
   size       Size[]      @relation("StoreToSize")
-    color       Color[]      @relation("StoreToColor")
+  color      Color[]     @relation("StoreToColor")
   Category   Category[]  @relation("StoreToCategory")
 }
 
@@ -66,7 +66,6 @@ model Size {
 
   @@index([storeId])
 }
-
 
 model Color {
   id        String   @id @default(uuid())

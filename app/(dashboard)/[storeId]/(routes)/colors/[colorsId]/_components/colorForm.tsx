@@ -16,7 +16,7 @@ import { AlertModal } from "@/components/ui/modal/alert-modal";
 import { Separator } from "@/components/ui/separator";
 import { useOrigin } from "@/hooks/use-origin";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Color  } from "@prisma/client";
+import { Color } from "@prisma/client";
 import axios from "axios";
 import { Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
@@ -27,7 +27,9 @@ import { z } from "zod";
 
 const formSchema = z.object({
   name: z.string().min(1),
-  value: z.string().min(1),
+  value: z.string().min(1).regex(/^#/, {
+    message: "String must be a valid hex code",
+  }),
 });
 
 interface ColorFormProps {
@@ -183,13 +185,19 @@ const ColorForm: React.FC<ColorFormProps> = ({ initialData }) => {
                 <FormItem>
                   <FormLabel>Value</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      disabled={loading}
-                      placeholder="Color value"
-                    />
+                    <div className="fle items-center gap-4">
+                      <Input
+                        {...field}
+                        disabled={loading}
+                        placeholder="Color value"
+                      />
+                      <div
+                        className="border o-4 rounded-full"
+                        style={{ backgroundColor: field.value }}
+                      />
+                    </div>
                   </FormControl>
-                </FormItem> 
+                </FormItem>
               )}
             />
           </div>
