@@ -36,7 +36,7 @@ const SizesClient: React.FC<SizesClientProps> = ({ data }) => {
       <DataTable searchKey="name" columns={columns} data={data} />
       <Heading title="API" description="API Calls for Sizes"></Heading>
       <Separator />
-      <ApiList entityIDName="SizesId" entityName="Sizes" />
+      <ApiList entityIDName="sizesId" entityName="sizes" />
     </>
   );
 };
