@@ -1,7 +1,7 @@
 import prismadb from "@/lib/prismadb";
-import BillboardClient from "./_components/BillboardClient";
+import CategoryClient from "./_components/CategoryClient";
 import { StringMappingType } from "typescript";
-import { BillboardColumn } from "./_components/column";
+import {  CategoryColumn } from "./_components/column";
 import { format } from "date-fns";
 
 const BillBoardsPage = async ({
@@ -10,26 +10,29 @@ const BillBoardsPage = async ({
   params: { storeId: string  };
 }) => {
   const { storeId } = await params;
-  const billboards = await prismadb.billBoard.findMany({
+  const categories = await prismadb.category.findMany({
     where: {
       storeId:storeId,
+    },include:{
+      billboard:true
     },
     orderBy: {
-      createAt: "desc", 
+      createdAt: "desc", 
     },
   });
 
-  const formattedBillboards: BillboardColumn [] = billboards.map((item)=>({
+  const formattedCategories: CategoryColumn[] = categories.map((item)=>({
     id:item.id,
-    label:item.label,
-    createdAt:format(item.createAt,"MMM do, yyyy")
+    name:item.name,
+    billboardLabel:item.billboard.label,
+    createdAt:format(item.createdAt,"MMM do, yyyy")
   }))
 
    
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillboardClient data={formattedBillboards}/>
+        <CategoryClient data={formattedCategories}/>
       </div>
     </div>
   );
