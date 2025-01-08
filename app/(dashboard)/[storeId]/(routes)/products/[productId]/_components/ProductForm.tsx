@@ -56,7 +56,12 @@ interface ProductFormProps {
 
 type ProductFormValues = z.infer<typeof formSchema>;
 
-const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
+const ProductForm: React.FC<ProductFormProps> = ({
+  initialData,
+  categories,
+  colors,
+  sizes,
+}) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const params = useParams();
@@ -229,11 +234,11 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
             />
             <FormField
               control={form.control}
-              name="billboardId"
+              name="categoryId"
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel> Billboard </FormLabel>
+                    <FormLabel> Category </FormLabel>
                     <Select
                       disabled={loading}
                       onValueChange={field.onChange}
@@ -244,7 +249,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                         <SelectTrigger>
                           <SelectValue
                             defaultValue={field.value}
-                            placeholder="Select a billboard"
+                            placeholder="Select a category"
                           ></SelectValue>
                         </SelectTrigger>
                       </FormControl>
@@ -263,11 +268,11 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
 
             <FormField
               control={form.control}
-              name="billboardId"
+              name="sizeId"
               render={({ field }) => {
                 return (
                   <FormItem>
-                    <FormLabel> Category </FormLabel>
+                    <FormLabel>Sizes </FormLabel>
                     <Select
                       disabled={loading}
                       onValueChange={field.onChange}
@@ -278,14 +283,14 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                         <SelectTrigger>
                           <SelectValue
                             defaultValue={field.value}
-                            placeholder="Select a billboard"
+                            placeholder="Select a size"
                           ></SelectValue>
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {categories.map((category) => (
-                          <SelectItem key={billboard.id} value={billboard.id}>
-                            {billboard.label}
+                        {sizes.map((size) => (
+                          <SelectItem key={size.id} value={size.id}>
+                            {size.name}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -294,6 +299,41 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
                 );
               }}
             />
+
+            <FormField
+              control={form.control}
+              name="colorId"
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel> Colors </FormLabel>
+                    <Select
+                      disabled={loading}
+                      onValueChange={field.onChange}
+                      value={field.value}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            defaultValue={field.value}
+                            placeholder="Select a Color"
+                          ></SelectValue>
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {colors.map((color) => (
+                          <SelectItem key={color.id} value={color.id}>
+                            {color.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                );
+              }}
+            />
+
             {/* form end */}
           </div>
           <Button disabled={loading} className=" my-6" type="submit">
