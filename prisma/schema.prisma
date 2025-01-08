@@ -90,7 +90,7 @@ model Product {
   categoryId String
   category   Category @relation("CategoryToProduct", fields: [categoryId], references: [id])
   name       String
-  price      String
+  price      Decimal
   isFeatured Boolean  @default(false)
   isArchive  Boolean  @default(false)
   sizeId     String
@@ -98,6 +98,8 @@ model Product {
   colorId    String
   color      Color    @relation(fields: [colorId], references: [id])
   Image      Image[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([storeId])
   @@index([categoryId])
@@ -110,7 +112,7 @@ model Image {
   productId String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   url       String
-  creaetdAt DateTime @default(now())
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([productId])
