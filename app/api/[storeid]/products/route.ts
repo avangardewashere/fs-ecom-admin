@@ -104,15 +104,31 @@ export async function GET(
       return new NextResponse("Store id is reqruired", { status: 400 });
     }
 
-    const billboards = await prismadb.billBoard.findMany({
+    const { searchParams } = new URL(req.url);
+    const categoryId = searchParams.get("categoryId") || undefined;
+    const colorId = searchParams.get("colorId") || undefined;
+    const sizeId = searchParams.get("sizeId") || undefined;
+    const isFeatured = searchParams.get("isFeatured");
+
+    const products = await prismadb.product.findMany({
       where: {
         storeId: storeid,
-      },
+        categoryId,
+        colorId,
+        sizeId,
+        isFeatured: isFeatured ? true : undefined ,
+        isArchived:false
+      },include:{
+        images:true,
+        category:true,
+        size:true,
+        color:true
+      }
     });
 
-    return NextResponse.json(billboards);
+    return NextResponse.json(products);
   } catch (error) {
-    console.log("[BILBOARD_GET]: ", error);
+    console.log("[PRODUCTS_GET]: ", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
