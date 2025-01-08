@@ -36,7 +36,7 @@ const ProductClient: React.FC<ProductClientProps> = ({ data }) => {
       <DataTable searchKey="label" columns={columns} data={data} />
       <Heading title="API" description="API Calls for Products"></Heading>
       <Separator />
-      <ApiList entityIDName="productsId" entityName="products" />
+      <ApiList entityIDName="productId" entityName="products" />
     </>
   );
 };
