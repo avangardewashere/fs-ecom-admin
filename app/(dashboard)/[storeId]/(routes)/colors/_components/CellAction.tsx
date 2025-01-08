@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  SizesColumn } from "./column";
+import {  ColorsColumn, } from "./column";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -17,7 +17,7 @@ import axios from "axios";
 import { AlertModal } from "@/components/ui/modal/alert-modal";
 
 interface CellActionProps {
-  data: SizesColumn;
+  data: ColorsColumn;
 }
 
 const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -31,10 +31,10 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
       navigator.clipboard
         .writeText(id)
         .then(() => {
-          toast.success("Sizes Id Copied Successfully");
+          toast.success("Colors Id Copied Successfully");
         })
         .catch((err) => {
-          console.error("Failed to copy Sizes ID: ", err);
+          console.error("Failed to copy Colors ID: ", err);
         });
     } else {
       const textarea = document.createElement("textarea");
@@ -50,10 +50,10 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/${params.storeId}/sizes/${data.id}`);
+      await axios.delete(`/api/${params.storeId}/colors/${data.id}`);
       router.refresh();
       //   router.push("/");
-      toast.success("sizes deleted" );
+      toast.success("colors deleted" );
     } catch (error) {
       toast.error("");
     } finally {
@@ -85,7 +85,7 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <span>Copy ID</span>
           </DropdownMenuItem>
 
-          <DropdownMenuItem onClick={()=>router.push(`/${params.storeId}/sizes/${data.id}`)}>
+          <DropdownMenuItem onClick={()=>router.push(`/${params.storeId}/colors/${data.id}`)}>
             <Edit className="h-4 2-4" />
             <span>Update</span>
           </DropdownMenuItem>
