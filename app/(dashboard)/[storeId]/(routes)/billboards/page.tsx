@@ -1,45 +1,38 @@
 import prismadb from "@/lib/prismadb";
-
-import { ProductColumn } from "./_components/column";
+import BillboardClient from "./_components/BillboardClient";
+ 
+import { BillboardColumn } from "./_components/column";
 import { format } from "date-fns";
-import ProductClient from "./_components/ProductClient";
-import { formatter } from "@/lib/utils";
 
-const ProductsPage = async ({ params }: { params: { storeId: string } }) => {
+const BillBoardsPage = async ({
+  params,
+}: {
+  params: { storeId: string  };
+}) => {
   const { storeId } = await params;
-  const products = await prismadb.product.findMany({
+  const billboards = await prismadb.billBoard.findMany({
     where: {
-      storeId: storeId,
-    },
-    include: {
-      category: true,
-      size: true,
-      color: true,
+      storeId:storeId,
     },
     orderBy: {
-      createdAt: "desc",
+      createAt: "desc", 
     },
   });
 
-  const formatProducts: ProductColumn[] = products.map((item) => ({
-    id: item.id,
-    name: item.name,
-    isFeatured: item.isFeatured,
-    isArchived: item.isArchive,
-    price: formatter.format(Number(item.price)),
-    category: item.category.name,
-    size: item.size.name,
-    color: item.color.value,
-    createdAt: format(item.createdAt, "MMM do, yyyy"),
-  }));
+  const formattedBillboards: BillboardColumn [] = billboards.map((item)=>({
+    id:item.id,
+    label:item.label,
+    createdAt:format(item.createAt,"MMM do, yyyy")
+  }))
 
+   
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <ProductClient data={formatProducts} />
+        <BillboardClient data={formattedBillboards}/>
       </div>
     </div>
   );
 };
 
-export default ProductsPage;
+export default BillBoardsPage;
