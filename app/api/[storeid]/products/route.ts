@@ -10,22 +10,50 @@ export async function POST(
     const { userId } = await auth();
     const body = await req.json();
 
-    const { label, imageUrl } = body;
+    const {
+      name,
+      price,
+      categoryId,
+      colorId,
+      sizeId,
+      images,
+      isFeatured,
+      isArchived,
+    } = body;
+
     const { storeid } = await params;
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
 
-    if (!label) {
-      return new NextResponse("Label is Rerquried");
+    if (!name) {
+      return new NextResponse("Name is Rerquried");
     }
 
-    if (!imageUrl) {
-      return new NextResponse("Image URL is required", { status: 400 });
+    if (!price) {
+      return new NextResponse("Price is required", { status: 400 });
+    }
+
+    if (!categoryId) {
+      return new NextResponse("Category ID is required", { status: 400 });
+    }
+
+    if (!colorId) {
+      return new NextResponse("Color ID is required", { status: 400 });
+    }
+
+    if (!sizeId) {
+      return new NextResponse("Size ID is required", { status: 400 });
+    }
+
+    if (!images || !images.length) {
+      return new NextResponse("Images are required", { status: 400 });
     }
 
     if (!storeid) {
-      return new NextResponse("Store Id is required"+ params.storeid, { status: 400 });
+      return new NextResponse("Store Id is required" + params.storeid, {
+        status: 400,
+      });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -39,17 +67,29 @@ export async function POST(
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const billBoard = await prismadb.billBoard.create({
+    const product = await prismadb.product.create({
       data: {
-        label,
-        imageUrl,
+        name,
+        price,
+        isFeatured,
+        isArchived,
+        categoryId,
+        colorId,
+        sizeId,
         storeId: storeid,
+        images: {
+          createMany: {
+            data: {
+              ...images.map((image: { url: string }) => image),
+            },
+          },
+        },
       },
     });
 
-    return NextResponse.json(billBoard);
+    return NextResponse.json(product);
   } catch (error) {
-    console.log("[BILLBOARD_POST] : error", error);
+    console.log("[PRODUCT_POST] : error", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
@@ -64,10 +104,9 @@ export async function GET(
       return new NextResponse("Store id is reqruired", { status: 400 });
     }
 
-  
     const billboards = await prismadb.billBoard.findMany({
       where: {
-        storeId:storeid,
+        storeId: storeid,
       },
     });
 
