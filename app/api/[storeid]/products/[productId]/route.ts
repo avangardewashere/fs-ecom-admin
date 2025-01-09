@@ -1,10 +1,11 @@
 import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs/server";
+import { Decimal } from "@prisma/client/runtime/library";
 import { NextResponse } from "next/server";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { storeId: string; productId: string } }
+  { params }: { params: { storeid: string; productId: string } }
 ) {
   try {
     const { userId } = await auth();
@@ -22,7 +23,7 @@ export async function PATCH(
     } = body;
 
     const { productId } = await params;
-    const { storeId } = await params;
+    const { storeid } = await params;
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 401 });
     }
@@ -51,7 +52,7 @@ export async function PATCH(
       return new NextResponse("Images are required", { status: 400 });
     }
 
-    if (!storeId) {
+    if (!storeid) {
       return new NextResponse("Store Id is required", { status: 400 });
     }
 
@@ -61,7 +62,7 @@ export async function PATCH(
 
     const storeByUserId = await prismadb.store.findFirst({
       where: {
-        id: storeId,
+        id: storeid,
         userId,
       },
     });
@@ -77,7 +78,7 @@ export async function PATCH(
       },
       data: {
         name,
-        price,
+        price:Number(price),
         categoryId,
         colorId,
         sizeId,
@@ -186,6 +187,10 @@ export async function GET(
         color: true,
       },
     });
+
+    if (product && product.price instanceof Decimal) {
+      product.price = product.price.toNumber() as any; // Convert Decimal to number
+    }
 
     return NextResponse.json(product);
   } catch (error) {
