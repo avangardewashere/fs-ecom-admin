@@ -128,8 +128,8 @@ export async function DELETE(
     if (!storeid) {
       return new NextResponse("Store Id is required", { status: 400 });
     }
-    if (!billboardId) {
-      return new NextResponse("Billboard  Id is required", { status: 400 });
+    if (!productId) {
+      return new NextResponse("Product  Id is required", { status: 400 });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -143,15 +143,16 @@ export async function DELETE(
       return new NextResponse("Unauthorizd", { status: 403 });
     }
 
-    const billboard = await prismadb.billBoard.deleteMany({
+    const product = await prismadb.product.deleteMany({
       where: {
-        id: billboardId,
+        id: productId,
       },
     });
 
-    return NextResponse.json(billboard);
+    return NextResponse.json(product);
   } catch (error) {
-    console.log("[BILLBOARD_DELETE]", error);
+    //checking this later
+    console.log("[product_DELETE]", error);
   }
   return new NextResponse("Internal error", { status: 500 });
 }
