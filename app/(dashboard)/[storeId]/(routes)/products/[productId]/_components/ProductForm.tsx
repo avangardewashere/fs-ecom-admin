@@ -125,6 +125,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
     }
   };
 
+  console.log(initialData)
+
   const onDelete = async () => {
     try {
       setLoading(true);

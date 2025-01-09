@@ -1,6 +1,6 @@
 import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs/server";
-import { Decimal } from "@prisma/client/runtime/library";
+ 
 import { NextResponse } from "next/server";
 
 export async function PATCH(
@@ -11,6 +11,8 @@ export async function PATCH(
     const { userId } = await auth();
     const body = await req.json();
 
+  
+ 
     const {
       name,
       price,
@@ -78,7 +80,7 @@ export async function PATCH(
       },
       data: {
         name,
-        price:Number(price),
+        price: Number(price),
         categoryId,
         colorId,
         sizeId,
@@ -97,9 +99,9 @@ export async function PATCH(
       data: {
         images: {
           createMany: {
-            data: {
+            data: [
               ...images.map((image: { url: string }) => image),
-            },
+            ],
           },
         },
       },
@@ -107,6 +109,7 @@ export async function PATCH(
 
     return NextResponse.json(product);
   } catch (error) {
+ 
     console.log("[PRODUCT_PATCH]", error);
   }
   return new NextResponse("Internal error", { status: 500 });
@@ -165,7 +168,7 @@ export async function GET(
   { params }: { params: { productId: string } }
 ) {
   try {
-    // const { userId } = await auth();
+    // const { userId } = await auth(); 
     const { productId } = await params;
 
     // if (!userId) {
@@ -188,9 +191,9 @@ export async function GET(
       },
     });
 
-    if (product && product.price instanceof Decimal) {
-      product.price = product.price.toNumber() as any; // Convert Decimal to number
-    }
+    // if (product && product.price instanceof Decimal) {
+    //   product.price = product.price.toNumber() ; // Convert Decimal to number
+    // }
 
     return NextResponse.json(product);
   } catch (error) {
