@@ -56,6 +56,11 @@ export async function POST(
       });
     }
 
+    if (!Array.isArray(images) || !images.length) {
+      return new NextResponse("Images are required", { status: 400 });
+    }
+    
+
     const storeByUserId = await prismadb.store.findFirst({
       where: {
         id: storeid,
@@ -79,9 +84,9 @@ export async function POST(
         storeId: storeid,
         images: {
           createMany: {
-            data: {
+            data: [
               ...images.map((image: { url: string }) => image),
-            },
+            ],
           },
         },
       },
