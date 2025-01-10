@@ -1,9 +1,10 @@
 import prismadb from "@/lib/prismadb";
-import BillboardClient from "./_components/BillboardClient";
+ 
 
 import { OrdersColumn } from "./_components/column";
 import { format } from "date-fns";
 import { formatter } from "@/lib/utils";
+import OrderClient from "./_components/OrderClient";
 
 const OrdersPage = async ({ params }: { params: { storeId: string } }) => {
   const { storeId } = await params;
@@ -42,7 +43,7 @@ const OrdersPage = async ({ params }: { params: { storeId: string } }) => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillboardClient data={formattedOrders} />
+        <OrderClient data={formattedOrders} />
       </div>
     </div>
   );
