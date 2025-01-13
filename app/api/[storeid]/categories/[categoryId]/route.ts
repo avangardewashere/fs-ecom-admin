@@ -114,12 +114,12 @@ export async function GET(
   { params }: { params: { categoryId: string } }
 ) {
   try {
-    const { userId } = await auth();
+    // const { userId } = await auth();
     const { categoryId } = await params;
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    // if (!userId) {
+    //   return new NextResponse("Unauthorized", { status: 401 });
+    // }
 
     if (!categoryId) {
       return new NextResponse("category  Id is required", { status: 400 });
