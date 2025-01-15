@@ -1,3 +1,4 @@
+import { getSalesCount } from "@/actions/GetSalesCount";
 import { getTotalRevenue } from "@/actions/GetTotalRevenue";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Heading from "@/components/ui/heading";
@@ -20,7 +21,7 @@ const DashboardPage: React.FC<DashboardPage> = async ({ params }) => {
   });
 
   const totalRevenue = await getTotalRevenue(storeId);
-  const salesCount = () => {};
+  const salesCount = await getSalesCount(storeId);
   const storeCount = () => {};
 
   return (
@@ -37,7 +38,9 @@ const DashboardPage: React.FC<DashboardPage> = async ({ params }) => {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{formatter.format(100)}</div>
+              <div className="text-2xl font-bold">
+                {formatter.format(totalRevenue)}
+              </div>
             </CardContent>
           </Card>
 
@@ -47,7 +50,9 @@ const DashboardPage: React.FC<DashboardPage> = async ({ params }) => {
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+{formatter.format(20)}</div>
+              <div className="text-2xl font-bold">
+                +{salesCount}
+              </div>
             </CardContent>
           </Card>
 
