@@ -1,3 +1,4 @@
+import Heading from "@/components/ui/heading";
 import prismadb from "@/lib/prismadb";
 
 interface DashboardPage {
@@ -16,8 +17,10 @@ const DashboardPage: React.FC<DashboardPage> = async ({ params }) => {
 
 
   return (
-    <div>
-      Active store <span>{store?.name}</span>
+    <div className="flex flex-col">
+      <div className="flex-1 space-y-4 p-8 pt-6">
+        <Heading title="Dashboard" description=""/> 
+      </div>
     </div>
   );
 };
