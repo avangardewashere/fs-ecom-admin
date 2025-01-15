@@ -1,3 +1,4 @@
+import prismadb from "@/lib/prismadb";
 import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -31,5 +32,21 @@ export async function POST(req: Request) {
     address?.country,
   ];
 
-  const addressString = addressComponents.filter(c=> !==null).join();
+  const addressString = addressComponents.filter((c) => c !== null).join();
+
+  if (event.type === "checkout.session.completed") {
+    const order = await prismadb.order.update({
+      where: {
+        id: session?.metadata?.orderId,
+      },
+      data: {
+        isPaid: true,
+        address: addressString,
+        phone: session?.customer_details?.phone || "",
+      },
+      include: {
+        orderItems: true,
+      },
+    });
+  }
 }
