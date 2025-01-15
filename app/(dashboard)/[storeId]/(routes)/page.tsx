@@ -1,6 +1,7 @@
 import { getSalesCount } from "@/actions/GetSalesCount";
 import { getStockCount } from "@/actions/GetSalesCount copy";
 import { getTotalRevenue } from "@/actions/GetTotalRevenue";
+import Overview from "@/components/Overview";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Heading from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
@@ -65,6 +66,15 @@ const DashboardPage: React.FC<DashboardPage> = async ({ params }) => {
             <CardContent>
               <div className="text-2xl font-bold">{stockCount}</div>
             </CardContent>
+          </Card>
+
+          <Card className="col-span-4">
+            <CardHeader>
+              <CardTitle>Overview</CardTitle>
+              <CardContent className="pl-2">
+              <Overview data={[]} />
+              </CardContent>
+            </CardHeader>
           </Card>
         </div>
       </div>
