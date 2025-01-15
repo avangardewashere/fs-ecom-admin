@@ -1,4 +1,5 @@
 import { getSalesCount } from "@/actions/GetSalesCount";
+import { getStockCount } from "@/actions/GetSalesCount copy";
 import { getTotalRevenue } from "@/actions/GetTotalRevenue";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Heading from "@/components/ui/heading";
@@ -22,7 +23,7 @@ const DashboardPage: React.FC<DashboardPage> = async ({ params }) => {
 
   const totalRevenue = await getTotalRevenue(storeId);
   const salesCount = await getSalesCount(storeId);
-  const storeCount = () => {};
+  const stockCount = await getStockCount(storeId);
 
   return (
     <div className="flex flex-col">
@@ -50,9 +51,7 @@ const DashboardPage: React.FC<DashboardPage> = async ({ params }) => {
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                +{salesCount}
-              </div>
+              <div className="text-2xl font-bold">+{salesCount}</div>
             </CardContent>
           </Card>
 
@@ -64,7 +63,7 @@ const DashboardPage: React.FC<DashboardPage> = async ({ params }) => {
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">10</div>
+              <div className="text-2xl font-bold">{stockCount}</div>
             </CardContent>
           </Card>
         </div>
