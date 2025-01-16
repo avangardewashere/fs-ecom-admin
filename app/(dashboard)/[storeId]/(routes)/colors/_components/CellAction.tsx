@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  ColorsColumn, } from "./column";
+// import {  ColorsColumn, } from "./column";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -15,6 +15,13 @@ import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { AlertModal } from "@/components/ui/modal/alert-modal";
+
+ type ColorsColumn = {
+  id: string;
+  name: string;
+  value: string;
+  createdAt: string;
+};
 
 interface CellActionProps {
   data: ColorsColumn;

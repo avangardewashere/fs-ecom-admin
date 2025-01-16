@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BillboardColumn } from "./column";
+ 
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -16,8 +16,18 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { AlertModal } from "@/components/ui/modal/alert-modal";
 
+export type OrdersColumn = {
+  id: string;
+  phone: string;
+  address: string;
+  ispPaid: boolean;
+  totalPrice: string;
+  products: string;
+  createdAt: string;
+};
+
 interface CellActionProps {
-  data: BillboardColumn;
+  data: OrdersColumn;
 }
 
 const CellAction: React.FC<CellActionProps> = ({ data }) => {

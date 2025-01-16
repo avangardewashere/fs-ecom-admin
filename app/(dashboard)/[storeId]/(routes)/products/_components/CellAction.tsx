@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  ProductColumn } from "./column";
+// import {  ProductColumn } from "./column";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -16,6 +16,16 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { AlertModal } from "@/components/ui/modal/alert-modal";
 
+type ProductColumn = {
+  id: string;
+  name: string;
+  price: string;
+  size: string;
+  color: string;
+  isFeatured: boolean;
+  isArchived: boolean;
+  createdAt: string;
+};
 interface CellActionProps {
   data: ProductColumn;
 }
