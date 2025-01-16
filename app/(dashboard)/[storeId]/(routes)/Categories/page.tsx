@@ -7,7 +7,7 @@ import { format } from "date-fns";
 const BillBoardsPage = async ({
   params,
 }: {
-  params: { storeId: string  };
+  params: Promise<{ storeId: string  }>;
 }) => {
   const { storeId } = await params;
   const categories = await prismadb.category.findMany({
