@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function PATCH(
   req: Request,
-  { params }: { params: { storeId: string } }
+  { params }: { params: Promise<{ storeId: string } >}
 ) {
   try {
     const { userId } = await auth();
@@ -44,24 +44,24 @@ export async function PATCH(
 
 export async function DELETE(
     req: Request,
-    { params }: { params: { storeId: string } }
+    { params }: { params: Promise<{ storeId: string }> }
   ) {
     try {
       const { userId } = await auth();
   
      
-  
+      const {storeId} = await params
    
       if (!userId) {
         return new NextResponse("Unauthorized", { status: 401 });
       }
   
-      if (!params.storeId) {
+      if (!storeId) {
         return new NextResponse("Store Id is required", { status: 400 });
       }
   
 
-      const {storeId} = await params
+   
 
       const store = await prismadb.store.deleteMany({
         where: {
