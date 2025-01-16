@@ -7,7 +7,7 @@ const CategorySinglePage = async ({
   params: { categoryId: string; storeId: string };
 }) => {
   const { categoryId, storeId } = await params;
-  const category = await prismadb.category.findUnique({
+  const category =  prismadb.category.findUnique({
     where: {
       id: categoryId,
     },
