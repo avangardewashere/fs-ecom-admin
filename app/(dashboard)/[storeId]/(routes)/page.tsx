@@ -28,6 +28,7 @@ const DashboardPage: React.FC<DashboardPage> = async ({ params }) => {
   const stockCount = await getStockCount(storeId);
 
   const graphData = await GetGraphRevenue(storeId);
+  console.log(graphData);
 
   return (
     <div className="flex flex-col">

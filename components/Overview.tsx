@@ -1,23 +1,24 @@
 "use client";
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+
 interface OverviewProps {
-  data: any[];
+  data: { name: string; total: number }[];
 }
 
 const Overview: React.FC<OverviewProps> = ({ data }) => {
   return (
-    <ResponsiveContainer>
+    <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data}>
-        <YAxis
+        <XAxis
           dataKey={"name"}
-          stroke="#8888888"
+          stroke="#888888"
           fontSize={12}
           tickLine={false}
           axisLine={false}
         />
-        <XAxis
-          stroke="#8888888"
+        <YAxis
+          stroke="#888888"
           fontSize={12}
           tickLine={false}
           axisLine={false}
