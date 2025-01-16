@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(
   req: Request,
-  { params }: { params: { storeid: string } }
+  { params }: { params: Promise<{ storeid: string }> }
 ) {
   try {
     const { userId } = await auth();
@@ -25,7 +25,9 @@ export async function POST(
     }
 
     if (!storeid) {
-      return new NextResponse("Store Id is required"+ params.storeid, { status: 400 });
+      return new NextResponse("Store Id is required" + storeid, {
+        status: 400,
+      });
     }
 
     const storeByUserId = await prismadb.store.findFirst({
@@ -56,7 +58,7 @@ export async function POST(
 
 export async function GET(
   req: Request,
-  { params }: { params: { storeid: string } }
+  { params }: { params: Promise<{ storeid: string }> }
 ) {
   try {
     const { storeid } = await params;
@@ -64,10 +66,9 @@ export async function GET(
       return new NextResponse("Store id is reqruired", { status: 400 });
     }
 
-  
     const billboards = await prismadb.billBoard.findMany({
       where: {
-        storeId:storeid,
+        storeId: storeid,
       },
     });
 
