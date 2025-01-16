@@ -4,9 +4,9 @@ import { redirect } from "next/navigation";
 import SettingsForm from "./_components/SettingsForm";
 
 interface SettingsPageProps {
-  params: {
+  params: Promise<{
     storeId: string;
-  };
+  }>;
 }
 
 const SettingsPage: React.FC<SettingsPageProps> = async ({ params }) => {

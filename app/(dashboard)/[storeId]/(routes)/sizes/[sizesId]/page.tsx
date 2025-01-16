@@ -4,7 +4,7 @@ import BillboardForm from "./_components/BillboardForm";
 const SizesSinglePage = async ({
   params,
 }: {
-  params: { sizesId: string };
+  params: Promise<{ sizesId: string }>;
 }) => {
   const { sizesId } = await params;
   const sizes= await prismadb.size.findUnique({

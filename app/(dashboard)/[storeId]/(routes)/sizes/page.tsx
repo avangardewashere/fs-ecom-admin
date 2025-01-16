@@ -7,7 +7,7 @@ import { format } from "date-fns";
 const SizesPage = async ({
   params,
 }: {
-  params: { storeId: string  };
+  params: Promise<{ storeId: string  }>;
 }) => {
   const { storeId } = await params;
   const sizes = await prismadb.size.findMany({
