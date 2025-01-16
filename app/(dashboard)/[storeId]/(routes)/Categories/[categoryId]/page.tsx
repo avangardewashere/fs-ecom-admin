@@ -2,25 +2,25 @@ import prismadb from "@/lib/prismadb";
 import CategoryForm from "./_components/CategoryForm";
 
 interface CategorySinglePageProps {
-  params: { 
-    categoryId: string; 
-    storeId: string; 
+  params: {
+    categoryId: string;
+    storeId: string;
   };
 }
 
 const CategorySinglePage: React.FC<CategorySinglePageProps> = async ({
   params,
 }) => {
-  const { categoryId, storeId } = params;
+  // const { categoryId, storeId } = params;
   const category = await prismadb.category.findUnique({
     where: {
-      id: categoryId,
+      id: params.categoryId,
     },
   });
 
   const billboards = await prismadb.billBoard.findMany({
     where: {
-      storeId: storeId,
+      storeId: params.storeId,
     },
   });
 
