@@ -4,7 +4,7 @@ import BillboardForm from "./_components/colorForm";
 const ColorSinglePage = async ({
   params,
 }: {
-  params: { colorsId: string };
+  params: Promise<{ colorsId: string }>;
 }) => {
   const { colorsId } = await params;
   const color= await prismadb.color.findUnique({
