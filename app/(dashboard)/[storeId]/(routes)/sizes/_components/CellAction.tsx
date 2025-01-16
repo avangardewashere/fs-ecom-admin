@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {  SizesColumn } from "./column";
+// import {  SizesColumn } from "./column";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -16,6 +16,12 @@ import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { AlertModal } from "@/components/ui/modal/alert-modal";
 
+type SizesColumn = {
+  id: string;
+  name: string;
+  value:string;
+  createdAt: string;
+};
 interface CellActionProps {
   data: SizesColumn;
 }
