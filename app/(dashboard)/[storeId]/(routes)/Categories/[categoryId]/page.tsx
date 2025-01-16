@@ -6,21 +6,21 @@ const CategorySinglePage = async ({
 }: {
   params: { categoryId: string; storeId: string };
 }) => {
-  const { categoryId, storeId } = await params;
-  const category =  prismadb.category.findUnique({
+  // Remove 'await' from params
+  const { categoryId, storeId } = params;
+
+  const category = await prismadb.category.findUnique({
     where: {
       id: categoryId,
     },
   });
 
-
- 
   const billboards = await prismadb.billBoard.findMany({
     where: {
       storeId: storeId,
     },
   });
- 
+
   return (
     <div className="flex-col">
       <div className="flex-col space-y-4 p-8 pt-6">
