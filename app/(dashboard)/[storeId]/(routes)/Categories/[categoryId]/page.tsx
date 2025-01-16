@@ -1,14 +1,14 @@
 import prismadb from "@/lib/prismadb";
 import CategoryForm from "./_components/CategoryForm";
 
-const CategorySinglePage = async ({
-  params,
-}: {
+interface CategorySinglePageProps {
   params: { categoryId: string; storeId: string };
-}) => {
-  // Remove 'await' from params
-  const { categoryId, storeId } = params;
+}
 
+const CategorySinglePage: React.FC<CategorySinglePageProps> = async ({
+  params,
+}) => {
+  const { categoryId, storeId } =   params;
   const category = await prismadb.category.findUnique({
     where: {
       id: categoryId,
