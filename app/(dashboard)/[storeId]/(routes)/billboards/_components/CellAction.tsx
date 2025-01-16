@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BillboardColumn } from "./column";
+// import { BillboardColumn } from "./column";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -15,6 +15,12 @@ import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { AlertModal } from "@/components/ui/modal/alert-modal";
+
+type BillboardColumn = {
+  id: string;
+  label: string;
+  createdAt: string;
+};
 
 interface CellActionProps {
   data: BillboardColumn;
