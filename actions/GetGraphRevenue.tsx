@@ -5,7 +5,7 @@ interface GraphDataTypes {
   total: number;
 }
 
-export const getSGraphRevenue = async (storeId: string) => {
+export const GetGraphRevenue = async (storeId: string) => {
   const paidOrders = await prismadb.order.findMany({
     where: {
       isPaid: true,
@@ -59,4 +59,10 @@ export const getSGraphRevenue = async (storeId: string) => {
 
     { name: "Dec", total: 0 },
   ];
+
+  for (const month in monthlyRevenue) {
+    graphData[parseInt(month)].total = monthlyRevenue[parseInt(month)];
+  }
+
+  return graphData;
 };

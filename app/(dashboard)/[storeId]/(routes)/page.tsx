@@ -1,5 +1,6 @@
+import { GetGraphRevenue } from "@/actions/GetGraphRevenue";
 import { getSalesCount } from "@/actions/GetSalesCount";
-import { getStockCount } from "@/actions/GetSalesCount copy";
+import { getStockCount } from "@/actions/getStockCount";
 import { getTotalRevenue } from "@/actions/GetTotalRevenue";
 import Overview from "@/components/Overview";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,15 +17,17 @@ interface DashboardPage {
 const DashboardPage: React.FC<DashboardPage> = async ({ params }) => {
   const { storeId } = await params;
 
-  const store = await prismadb.store.findFirst({
-    where: {
-      id: storeId,
-    },
-  });
+  // const store = await prismadb.store.findFirst({
+  //   where: {
+  //     id: storeId,
+  //   },
+  // });
 
   const totalRevenue = await getTotalRevenue(storeId);
   const salesCount = await getSalesCount(storeId);
   const stockCount = await getStockCount(storeId);
+
+  const graphData = await GetGraphRevenue(storeId);
 
   return (
     <div className="flex flex-col">
@@ -72,7 +75,7 @@ const DashboardPage: React.FC<DashboardPage> = async ({ params }) => {
             <CardHeader>
               <CardTitle>Overview</CardTitle>
               <CardContent className="pl-2">
-              <Overview data={[]} />
+                <Overview data={graphData} />
               </CardContent>
             </CardHeader>
           </Card>
