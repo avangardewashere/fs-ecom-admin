@@ -16,7 +16,7 @@ export async function OPTIONS() {
 
 export async function POST(
   req: Request,
-  { params }: { params: { storeid: string } }
+  { params }: { params: Promise<{ storeid: string }> }
 ) {
   const { productIds } = await req.json();
   const { storeid } = await params;
